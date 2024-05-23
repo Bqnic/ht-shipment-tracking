@@ -1,5 +1,16 @@
-function App() {
-  return <h1>hi</h1>;
-}
+import { Navigate, Route, Routes } from "react-router-dom";
+import Tracking from "./Tracking.tsx";
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="shipmentTracking"></Navigate>}
+        ></Route>
+        <Route path="shipmentTracking" element={<Tracking></Tracking>} />
+      </Routes>
+    </>
+  );
+}
