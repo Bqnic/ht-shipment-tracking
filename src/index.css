@@ -52,9 +52,44 @@ select {
   background: none;
   font-size: 1rem;
 }
+.shipments-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.shipment-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
 #get-shipment {
   background: none;
   border: none;
   border-bottom: 1px solid black;
   padding: 6px;
+}
+#detail-btn {
+  background-color: lightgreen;
+  border: 1px solid black;
+  padding: 4px;
+}
+#edit-btn {
+  background-color: darkturquoise;
+  border: 1px solid black;
+  padding: 4px;
+}
+#delete-btn {
+  background-color: #fca5a5;
+  border: 1px solid black;
+  padding: 4px;
+}
+.shipment-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }

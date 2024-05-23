@@ -10,6 +10,7 @@ export default function App() {
           element={<Navigate to="shipmentTracking"></Navigate>}
         ></Route>
         <Route path="shipmentTracking" element={<Tracking></Tracking>} />
+        <Route path="shipmentTracking/{id}" element={<Tracking></Tracking>} />
       </Routes>
     </>
   );
