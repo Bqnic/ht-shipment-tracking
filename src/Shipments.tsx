@@ -45,7 +45,7 @@ export default function Shipments() {
           </div>
           <div className="shipment-btns">
             <button
-              onClick={() => navigate(`shipmentTracking/${shipment.id}`)}
+              onClick={() => navigate(`/shipmentTracking/${shipment.id}`)}
               id="detail-btn"
             >
               View details

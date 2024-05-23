@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Tracking from "./Tracking.tsx";
+import DetailedShipment from "./DetailedShipment.tsx";
 
 export default function App() {
   return (
@@ -7,10 +8,10 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Navigate to="shipmentTracking"></Navigate>}
+          element={<Navigate to="shipmentTracking/"></Navigate>}
         ></Route>
         <Route path="shipmentTracking" element={<Tracking></Tracking>} />
-        <Route path="shipmentTracking/{id}" element={<Tracking></Tracking>} />
+        <Route path="/shipmentTracking/:id" element={<DetailedShipment />} />
       </Routes>
     </>
   );
