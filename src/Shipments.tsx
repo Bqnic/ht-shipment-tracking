@@ -1,18 +1,12 @@
-import { shipments } from "./assets/mockShipment.tsx";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { IShipment } from "./assets/Interfaces.tsx";
+import { IShipmentsComp } from "./assets/Interfaces";
 
-export default function Shipments() {
+export default function Shipments({
+  shipmentArr,
+  deleteFromShipmentArr,
+  setDetailsNotEdit,
+}: IShipmentsComp) {
   const navigate = useNavigate();
-  const [shipmentArr, setShipmentArr] = useState([...shipments]);
-
-  function deleteFromShipmentArr(shipment: IShipment) {
-    const tempArr = [...shipmentArr];
-    const index: number = tempArr.findIndex((s) => s === shipment);
-    tempArr.splice(index, 1);
-    setShipmentArr(tempArr);
-  }
 
   return (
     <div className="shipments-wrapper">
@@ -45,15 +39,26 @@ export default function Shipments() {
           </div>
           <div className="shipment-btns">
             <button
-              onClick={() => navigate(`/shipmentTracking/${shipment.id}`)}
+              onClick={() => {
+                setDetailsNotEdit(true);
+                navigate(`/shipmentTracking/${shipment.id}`);
+              }}
               id="detail-btn"
             >
               View details
             </button>
-            <button id="edit-btn">Edit</button>
+            <button
+              className="edit-btn"
+              onClick={() => {
+                setDetailsNotEdit(false);
+                navigate(`/shipmentTracking/${shipment.id}`);
+              }}
+            >
+              Edit
+            </button>
             <button
               onClick={() => deleteFromShipmentArr(shipment)}
-              id="delete-btn"
+              className="delete-btn"
             >
               Delete
             </button>

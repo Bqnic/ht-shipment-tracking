@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ISelector } from "./assets/Interfaces";
+import { ISelectorComp } from "./assets/Interfaces";
 
-export default function Selector({ setFilter }: ISelector) {
+export default function Selector({ setFilter }: ISelectorComp) {
   const [selected, setSelected] = useState("nofilter");
 
   return (

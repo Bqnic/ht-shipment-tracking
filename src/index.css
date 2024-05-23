@@ -77,12 +77,12 @@ select {
   border: 1px solid black;
   padding: 4px;
 }
-#edit-btn {
+.edit-btn {
   background-color: darkturquoise;
   border: 1px solid black;
   padding: 4px;
 }
-#delete-btn {
+.delete-btn {
   background-color: #fca5a5;
   border: 1px solid black;
   padding: 4px;
@@ -91,5 +91,24 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 10px;
+}
+.detailed-shipment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.detailed-shipment-wrapper .buttons {
+  display: flex;
+  gap: 20px;
+}
+.detailed-shipment-wrapper .buttons button {
+  width: 100px;
+}
+.edit-shipment {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }

@@ -33,7 +33,7 @@ interface ICustomer {
   description: string;
 }
 
-export interface ISelector {
+export interface ISelectorComp {
   setFilter: Function;
 }
 
@@ -46,11 +46,35 @@ export interface IShipment {
   status: Status;
   statusChangeDate: Date;
   statusChangeReason: string;
-  weight: Number;
+  weight: number;
   estimatedDeliveryDate: Date;
   addressFrom: IAddress;
   addressTo: IAddress;
   order: IOrder;
   relatedCustomer: ICustomer;
   createDate: Date;
+}
+
+export interface IShipmentsComp {
+  shipmentArr: IShipment[];
+  deleteFromShipmentArr: Function;
+  setDetailsNotEdit: Function;
+}
+
+export interface ITrackingComp {
+  shipmentArr: IShipment[];
+  deleteFromShipmentArr: Function;
+  setDetailsNotEdit: Function;
+}
+
+export interface IDetailedShipmentComp {
+  shipmentArr: IShipment[];
+  deleteFromShipmentArr: Function;
+  setDetailsNotEdit: Function;
+}
+
+export interface IEditShipment {
+  shipmentArr: IShipment[];
+  editShipmentArr: Function;
+  setDetailsNotEdit: Function;
 }

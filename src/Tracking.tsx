@@ -1,16 +1,23 @@
 import { useState } from "react";
-import Head from "./Head";
 import Selector from "./Selector";
 import Shipments from "./Shipments";
+import { ITrackingComp } from "./assets/Interfaces";
 
-export default function Tracking() {
+export default function Tracking({
+  shipmentArr,
+  deleteFromShipmentArr,
+  setDetailsNotEdit,
+}: ITrackingComp) {
   const [filter, setFilter] = useState("nofilter");
 
   return (
     <>
-      <Head></Head>
       <Selector setFilter={setFilter}></Selector>
-      <Shipments></Shipments>
+      <Shipments
+        shipmentArr={shipmentArr}
+        deleteFromShipmentArr={deleteFromShipmentArr}
+        setDetailsNotEdit={setDetailsNotEdit}
+      ></Shipments>
     </>
   );
 }
