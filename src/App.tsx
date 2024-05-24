@@ -6,10 +6,12 @@ import { shipments } from "./assets/mockShipment.tsx";
 import { useState } from "react";
 import Head from "./Head.tsx";
 import { EditShipment } from "./EditShipment.tsx";
+import { CreateShipment } from "./CreateShipment.tsx";
 
 export default function App() {
   const [shipmentArr, setShipmentArr] = useState([...shipments]);
   const [detailsNotEdit, setDetailsNotEdit] = useState(true);
+  const [notCreating, setNotCreating] = useState(true);
 
   function deleteFromShipmentArr(shipment: IShipment) {
     const tempArr = [...shipmentArr];
@@ -27,17 +29,22 @@ export default function App() {
 
   return (
     <>
-      <Head></Head>
+      <Head setNotCreating={setNotCreating}></Head>
       <Routes>
         <Route path="/" element={<Navigate to="shipmentTracking/" />}></Route>
         <Route
           path="shipmentTracking"
           element={
-            <Tracking
-              shipmentArr={shipmentArr}
-              deleteFromShipmentArr={deleteFromShipmentArr}
-              setDetailsNotEdit={setDetailsNotEdit}
-            />
+            notCreating ? (
+              <Tracking
+                shipmentArr={shipmentArr}
+                deleteFromShipmentArr={deleteFromShipmentArr}
+                setDetailsNotEdit={setDetailsNotEdit}
+                setNotCreating={setNotCreating}
+              />
+            ) : (
+              <CreateShipment setNotCreating={setNotCreating} />
+            )
           }
         />
         <Route

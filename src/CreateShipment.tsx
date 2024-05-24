@@ -1,17 +1,54 @@
-import { IEditShipment, Status } from "./assets/Interfaces.tsx";
-import { useParams } from "react-router-dom";
+import { ICreateShipment, IShipment, Status } from "./assets/Interfaces";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export function EditShipment({
-  shipmentArr,
-  editShipmentArr,
-  setDetailsNotEdit,
-}: IEditShipment) {
-  const navigate = useNavigate();
-  const param = useParams();
-  const index = shipmentArr.findIndex((s) => s.id === param.id);
-  const [editableShipment, setEditableShipment] = useState(shipmentArr[index]);
+export function CreateShipment({ setNotCreating }: ICreateShipment) {
+  const initialShipment: IShipment = {
+    id: "",
+    carrier: "",
+    trackingCode: "",
+    carrierTrackingUrl: "",
+    trackingDate: new Date(),
+    status: Status.initialized,
+    statusChangeDate: new Date(),
+    statusChangeReason: "",
+    weight: 0,
+    estimatedDeliveryDate: new Date(),
+    addressFrom: {
+      id: "",
+      streetNr: "",
+      streetName: "",
+      streetSuffix: "",
+      postcode: "",
+      city: "",
+      country: "",
+    },
+    addressTo: {
+      id: "",
+      streetNr: "",
+      streetName: "",
+      streetSuffix: "",
+      postcode: "",
+      city: "",
+      country: "",
+    },
+    order: {
+      id: "",
+      href: "",
+      name: "",
+      referredType: "",
+    },
+    relatedCustomer: {
+      id: "",
+      href: "",
+      name: "",
+      description: "",
+    },
+    createDate: new Date(),
+  };
+
+  const [newShipment, setNewShipment] = useState<IShipment>({
+    ...initialShipment,
+  });
 
   function handleChange(
     e: React.ChangeEvent<
@@ -19,37 +56,39 @@ export function EditShipment({
     >
   ) {
     const { name, value } = e.target;
-    setEditableShipment({
-      ...editableShipment,
+    setNewShipment({
+      ...newShipment,
       [name]: value,
     });
   }
-
   return (
-    <form className="edit-shipment">
-      <h2>Edit Shipment ID: {editableShipment.id}</h2>
+    <form className="create-shipment">
+      <h2>Create New Shipment</h2>
       <label>
         Carrier:
         <input
           name="carrier"
-          value={editableShipment.carrier}
+          value={newShipment.carrier}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Tracking Code:
         <input
           name="trackingCode"
-          value={editableShipment.trackingCode}
+          value={newShipment.trackingCode}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Carrier Tracking URL:
         <input
           name="carrierTrackingUrl"
-          value={editableShipment.carrierTrackingUrl}
+          value={newShipment.carrierTrackingUrl}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -57,16 +96,18 @@ export function EditShipment({
         <input
           name="trackingDate"
           type="date"
-          value={editableShipment.trackingDate.toISOString().substr(0, 10)}
+          value={newShipment.trackingDate.toISOString().substr(0, 10)}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Status:
         <select
           name="status"
-          value={editableShipment.status}
+          value={newShipment.status}
           onChange={handleChange}
+          required
         >
           {Object.values(Status).map((value) => (
             <option key={value} value={value}>
@@ -80,16 +121,18 @@ export function EditShipment({
         <input
           name="statusChangeDate"
           type="date"
-          value={editableShipment.statusChangeDate.toISOString().substr(0, 10)}
+          value={newShipment.statusChangeDate.toISOString().substr(0, 10)}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Status Change Reason:
         <textarea
           name="statusChangeReason"
-          value={editableShipment.statusChangeReason}
+          value={newShipment.statusChangeReason}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -97,8 +140,9 @@ export function EditShipment({
         <input
           name="weight"
           type="number"
-          value={editableShipment.weight}
+          value={newShipment.weight}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -106,10 +150,9 @@ export function EditShipment({
         <input
           name="estimatedDeliveryDate"
           type="date"
-          value={editableShipment.estimatedDeliveryDate
-            .toISOString()
-            .substr(0, 10)}
+          value={newShipment.estimatedDeliveryDate.toISOString().substr(0, 10)}
           onChange={handleChange}
+          required
         />
       </label>
       <h3>Address From:</h3>
@@ -117,48 +160,54 @@ export function EditShipment({
         Street Number:
         <input
           name="addressFrom.streetNr"
-          value={editableShipment.addressFrom.streetNr}
+          value={newShipment.addressFrom.streetNr}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Street Name:
         <input
           name="addressFrom.streetName"
-          value={editableShipment.addressFrom.streetName}
+          value={newShipment.addressFrom.streetName}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Street Suffix:
         <input
           name="addressFrom.streetSuffix"
-          value={editableShipment.addressFrom.streetSuffix}
+          value={newShipment.addressFrom.streetSuffix}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Postcode:
         <input
           name="addressFrom.postcode"
-          value={editableShipment.addressFrom.postcode}
+          value={newShipment.addressFrom.postcode}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         City:
         <input
           name="addressFrom.city"
-          value={editableShipment.addressFrom.city}
+          value={newShipment.addressFrom.city}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Country:
         <input
           name="addressFrom.country"
-          value={editableShipment.addressFrom.country}
+          value={newShipment.addressFrom.country}
           onChange={handleChange}
+          required
         />
       </label>
       <h3>Address To:</h3>
@@ -166,48 +215,54 @@ export function EditShipment({
         Street Number:
         <input
           name="addressTo.streetNr"
-          value={editableShipment.addressTo.streetNr}
+          value={newShipment.addressTo.streetNr}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Street Name:
         <input
           name="addressTo.streetName"
-          value={editableShipment.addressTo.streetName}
+          value={newShipment.addressTo.streetName}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Street Suffix:
         <input
           name="addressTo.streetSuffix"
-          value={editableShipment.addressTo.streetSuffix}
+          value={newShipment.addressTo.streetSuffix}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Postcode:
         <input
           name="addressTo.postcode"
-          value={editableShipment.addressTo.postcode}
+          value={newShipment.addressTo.postcode}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         City:
         <input
           name="addressTo.city"
-          value={editableShipment.addressTo.city}
+          value={newShipment.addressTo.city}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Country:
         <input
           name="addressTo.country"
-          value={editableShipment.addressTo.country}
+          value={newShipment.addressTo.country}
           onChange={handleChange}
+          required
         />
       </label>
       <h3>Order:</h3>
@@ -215,24 +270,27 @@ export function EditShipment({
         Order ID:
         <input
           name="order.id"
-          value={editableShipment.order.id}
+          value={newShipment.order.id}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Order Name:
         <input
           name="order.name"
-          value={editableShipment.order.name}
+          value={newShipment.order.name}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Order Type:
         <input
           name="order.referredType"
-          value={editableShipment.order.referredType}
+          value={newShipment.order.referredType}
           onChange={handleChange}
+          required
         />
       </label>
       <h3>Related Customer:</h3>
@@ -240,24 +298,27 @@ export function EditShipment({
         Customer ID:
         <input
           name="relatedCustomer.id"
-          value={editableShipment.relatedCustomer.id}
+          value={newShipment.relatedCustomer.id}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Customer Name:
         <input
           name="relatedCustomer.name"
-          value={editableShipment.relatedCustomer.name}
+          value={newShipment.relatedCustomer.name}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
         Customer Description:
         <input
           name="relatedCustomer.description"
-          value={editableShipment.relatedCustomer.description}
+          value={newShipment.relatedCustomer.description}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -265,25 +326,16 @@ export function EditShipment({
         <input
           name="createDate"
           type="date"
-          value={editableShipment.createDate.toISOString().substr(0, 10)}
+          value={newShipment.createDate.toISOString().substr(0, 10)}
           onChange={handleChange}
+          required
         />
       </label>
+      <button type="submit">Create</button>
       <button
         type="button"
         onClick={() => {
-          editShipmentArr(editableShipment);
-          setDetailsNotEdit(true);
-          navigate(`/shipmentTracking/${editableShipment.id}`);
-        }}
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setDetailsNotEdit(true);
-          navigate(`/shipmentTracking/${editableShipment.id}`);
+          setNotCreating(true);
         }}
       >
         Cancel

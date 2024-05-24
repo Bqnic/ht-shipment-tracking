@@ -65,6 +65,7 @@ export interface ITrackingComp {
   shipmentArr: IShipment[];
   deleteFromShipmentArr: Function;
   setDetailsNotEdit: Function;
+  setNotCreating: Function;
 }
 
 export interface IDetailedShipmentComp {
@@ -77,4 +78,12 @@ export interface IEditShipment {
   shipmentArr: IShipment[];
   editShipmentArr: Function;
   setDetailsNotEdit: Function;
+}
+
+export interface ICreateShipment {
+  setNotCreating: Function;
+}
+
+export interface IHead {
+  setNotCreating: Function;
 }

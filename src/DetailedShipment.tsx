@@ -14,6 +14,14 @@ export default function DetailedShipment({
 
   return (
     <>
+      <button
+        className="go-back"
+        onClick={() => {
+          navigate("/shipmentTracking");
+        }}
+      >
+        &lt;-
+      </button>
       <div className="detailed-shipment-wrapper">
         <div className="detailed-shipment">
           <div>

@@ -59,6 +59,7 @@ select {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-bottom: 10px;
 }
 .shipment-wrapper {
   display: flex;
@@ -99,16 +100,42 @@ select {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin: 0 40px;
 }
 .detailed-shipment-wrapper .buttons {
   display: flex;
   gap: 20px;
+  margin: 10px;
 }
 .detailed-shipment-wrapper .buttons button {
   width: 100px;
 }
-.edit-shipment {
+.edit-shipment,
+.create-shipment {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.go-back {
+  background: none;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 6px;
+  margin: 6px;
+}
+#adding-shipment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  width: 150px;
+  background: none;
+  border: 1px solid green;
+  margin: 12px;
+}
+.tracking {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
