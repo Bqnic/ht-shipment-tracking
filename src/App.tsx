@@ -27,6 +27,17 @@ export default function App() {
     setShipmentArr(tempArr);
   }
 
+  function addShipment(shipment: IShipment) {
+    const tempArr = [...shipmentArr];
+    let id = 1;
+    while (id in tempArr) {
+      id = Math.ceil(Math.random() * 1000);
+    }
+    shipment.id = id.toString();
+    tempArr.push(shipment);
+    setShipmentArr(tempArr);
+  }
+
   return (
     <>
       <Head setNotCreating={setNotCreating}></Head>
@@ -43,7 +54,10 @@ export default function App() {
                 setNotCreating={setNotCreating}
               />
             ) : (
-              <CreateShipment setNotCreating={setNotCreating} />
+              <CreateShipment
+                setNotCreating={setNotCreating}
+                addShipment={addShipment}
+              />
             )
           }
         />

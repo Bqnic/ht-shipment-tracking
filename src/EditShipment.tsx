@@ -19,17 +19,80 @@ export function EditShipment({
     >
   ) {
     const { name, value } = e.target;
-    setEditableShipment({
-      ...editableShipment,
-      [name]: value,
-    });
+
+    const keys = name.split(".");
+    if (keys.length === 2) {
+      const [parent, child] = keys;
+      setEditableShipment({
+        ...editableShipment,
+        [parent]: {
+          ...(editableShipment as any)[parent],
+          [child]: value,
+        },
+      });
+    } else if (
+      name === "trackingDate" ||
+      name === "statusChangeDate" ||
+      name === "estimatedDeliveryDate" ||
+      name === "createDate"
+    ) {
+      setEditableShipment({
+        ...editableShipment,
+        [name]: new Date(value),
+      });
+    } else {
+      setEditableShipment({
+        ...editableShipment,
+        [name]: value,
+      });
+    }
+  }
+
+  function checkValidity() {
+    const {
+      carrier,
+      trackingCode,
+      weight,
+      addressFrom,
+      addressTo,
+      order,
+      relatedCustomer,
+      id,
+    } = editableShipment;
+
+    const isNotEmpty = (str: string) => str && str.trim() !== "";
+    const isPositiveNumber = (num: number) => !isNaN(num) && Number(num) > 0;
+
+    if (
+      isNotEmpty(carrier) &&
+      isNotEmpty(trackingCode) &&
+      isPositiveNumber(weight) &&
+      isNotEmpty(addressFrom?.streetNr) &&
+      isNotEmpty(addressFrom?.streetName) &&
+      isNotEmpty(addressFrom?.postcode) &&
+      isNotEmpty(addressFrom?.city) &&
+      isNotEmpty(addressFrom?.country) &&
+      isNotEmpty(addressTo?.streetNr) &&
+      isNotEmpty(addressTo?.streetName) &&
+      isNotEmpty(addressTo?.postcode) &&
+      isNotEmpty(addressTo?.city) &&
+      isNotEmpty(addressTo?.country) &&
+      isNotEmpty(order?.id) &&
+      isNotEmpty(relatedCustomer?.id)
+    ) {
+      editShipmentArr(editableShipment);
+      setDetailsNotEdit(true);
+      navigate(`/shipmentTracking/${id}`);
+    } else {
+      alert("Please fill out the required fields (marked with *)");
+    }
   }
 
   return (
     <form className="edit-shipment">
       <h2>Edit Shipment ID: {editableShipment.id}</h2>
       <label>
-        Carrier:
+        * Carrier:
         <input
           name="carrier"
           value={editableShipment.carrier}
@@ -37,7 +100,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Tracking Code:
+        * Tracking Code:
         <input
           name="trackingCode"
           value={editableShipment.trackingCode}
@@ -93,7 +156,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Weight:
+        * Weight:
         <input
           name="weight"
           type="number"
@@ -114,7 +177,7 @@ export function EditShipment({
       </label>
       <h3>Address From:</h3>
       <label>
-        Street Number:
+        * Street Number:
         <input
           name="addressFrom.streetNr"
           value={editableShipment.addressFrom.streetNr}
@@ -122,7 +185,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Street Name:
+        * Street Name:
         <input
           name="addressFrom.streetName"
           value={editableShipment.addressFrom.streetName}
@@ -138,7 +201,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Postcode:
+        * Postcode:
         <input
           name="addressFrom.postcode"
           value={editableShipment.addressFrom.postcode}
@@ -146,7 +209,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        City:
+        * City:
         <input
           name="addressFrom.city"
           value={editableShipment.addressFrom.city}
@@ -154,7 +217,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Country:
+        * Country:
         <input
           name="addressFrom.country"
           value={editableShipment.addressFrom.country}
@@ -163,7 +226,7 @@ export function EditShipment({
       </label>
       <h3>Address To:</h3>
       <label>
-        Street Number:
+        * Street Number:
         <input
           name="addressTo.streetNr"
           value={editableShipment.addressTo.streetNr}
@@ -171,7 +234,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Street Name:
+        * Street Name:
         <input
           name="addressTo.streetName"
           value={editableShipment.addressTo.streetName}
@@ -187,7 +250,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Postcode:
+        * Postcode:
         <input
           name="addressTo.postcode"
           value={editableShipment.addressTo.postcode}
@@ -195,7 +258,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        City:
+        * City:
         <input
           name="addressTo.city"
           value={editableShipment.addressTo.city}
@@ -203,7 +266,7 @@ export function EditShipment({
         />
       </label>
       <label>
-        Country:
+        * Country:
         <input
           name="addressTo.country"
           value={editableShipment.addressTo.country}
@@ -212,7 +275,7 @@ export function EditShipment({
       </label>
       <h3>Order:</h3>
       <label>
-        Order ID:
+        * Order ID:
         <input
           name="order.id"
           value={editableShipment.order.id}
@@ -237,7 +300,7 @@ export function EditShipment({
       </label>
       <h3>Related Customer:</h3>
       <label>
-        Customer ID:
+        * Customer ID:
         <input
           name="relatedCustomer.id"
           value={editableShipment.relatedCustomer.id}
@@ -272,9 +335,7 @@ export function EditShipment({
       <button
         type="button"
         onClick={() => {
-          editShipmentArr(editableShipment);
-          setDetailsNotEdit(true);
-          navigate(`/shipmentTracking/${editableShipment.id}`);
+          checkValidity();
         }}
       >
         Save

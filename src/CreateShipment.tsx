@@ -1,51 +1,15 @@
-import { ICreateShipment, IShipment, Status } from "./assets/Interfaces";
+import {
+  ICreateShipment,
+  IShipment,
+  Status,
+  initialShipment,
+} from "./assets/Interfaces";
 import { useState } from "react";
 
-export function CreateShipment({ setNotCreating }: ICreateShipment) {
-  const initialShipment: IShipment = {
-    id: "",
-    carrier: "",
-    trackingCode: "",
-    carrierTrackingUrl: "",
-    trackingDate: new Date(),
-    status: Status.initialized,
-    statusChangeDate: new Date(),
-    statusChangeReason: "",
-    weight: 0,
-    estimatedDeliveryDate: new Date(),
-    addressFrom: {
-      id: "",
-      streetNr: "",
-      streetName: "",
-      streetSuffix: "",
-      postcode: "",
-      city: "",
-      country: "",
-    },
-    addressTo: {
-      id: "",
-      streetNr: "",
-      streetName: "",
-      streetSuffix: "",
-      postcode: "",
-      city: "",
-      country: "",
-    },
-    order: {
-      id: "",
-      href: "",
-      name: "",
-      referredType: "",
-    },
-    relatedCustomer: {
-      id: "",
-      href: "",
-      name: "",
-      description: "",
-    },
-    createDate: new Date(),
-  };
-
+export function CreateShipment({
+  setNotCreating,
+  addShipment,
+}: ICreateShipment) {
   const [newShipment, setNewShipment] = useState<IShipment>({
     ...initialShipment,
   });
@@ -56,16 +20,78 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
     >
   ) {
     const { name, value } = e.target;
-    setNewShipment({
-      ...newShipment,
-      [name]: value,
-    });
+
+    const keys = name.split(".");
+    if (keys.length === 2) {
+      const [parent, child] = keys;
+      setNewShipment({
+        ...newShipment,
+        [parent]: {
+          ...(newShipment as any)[parent],
+          [child]: value,
+        },
+      });
+    } else if (
+      name === "trackingDate" ||
+      name === "statusChangeDate" ||
+      name === "estimatedDeliveryDate" ||
+      name === "createDate"
+    ) {
+      setNewShipment({
+        ...newShipment,
+        [name]: new Date(value),
+      });
+    } else {
+      setNewShipment({
+        ...newShipment,
+        [name]: value,
+      });
+    }
   }
+
+  function checkValidity() {
+    const {
+      carrier,
+      trackingCode,
+      weight,
+      addressFrom,
+      addressTo,
+      order,
+      relatedCustomer,
+    } = newShipment;
+
+    const isNotEmpty = (str: string) => str && str.trim() !== "";
+    const isPositiveNumber = (num: number) => !isNaN(num) && Number(num) > 0;
+
+    if (
+      isNotEmpty(carrier) &&
+      isNotEmpty(trackingCode) &&
+      isPositiveNumber(weight) &&
+      isNotEmpty(addressFrom?.streetNr) &&
+      isNotEmpty(addressFrom?.streetName) &&
+      isNotEmpty(addressFrom?.postcode) &&
+      isNotEmpty(addressFrom?.city) &&
+      isNotEmpty(addressFrom?.country) &&
+      isNotEmpty(addressTo?.streetNr) &&
+      isNotEmpty(addressTo?.streetName) &&
+      isNotEmpty(addressTo?.postcode) &&
+      isNotEmpty(addressTo?.city) &&
+      isNotEmpty(addressTo?.country) &&
+      isNotEmpty(order?.id) &&
+      isNotEmpty(relatedCustomer?.id)
+    ) {
+      addShipment(newShipment);
+      setNotCreating(true);
+    } else {
+      alert("Please fill out the required fields (marked with *)");
+    }
+  }
+
   return (
     <form className="create-shipment">
       <h2>Create New Shipment</h2>
       <label>
-        Carrier:
+        * Carrier:
         <input
           name="carrier"
           value={newShipment.carrier}
@@ -74,7 +100,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        Tracking Code:
+        * Tracking Code:
         <input
           name="trackingCode"
           value={newShipment.trackingCode}
@@ -132,11 +158,10 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
           name="statusChangeReason"
           value={newShipment.statusChangeReason}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
-        Weight:
+        * Weight:
         <input
           name="weight"
           type="number"
@@ -157,7 +182,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
       </label>
       <h3>Address From:</h3>
       <label>
-        Street Number:
+        * Street Number:
         <input
           name="addressFrom.streetNr"
           value={newShipment.addressFrom.streetNr}
@@ -166,7 +191,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        Street Name:
+        * Street Name:
         <input
           name="addressFrom.streetName"
           value={newShipment.addressFrom.streetName}
@@ -180,11 +205,10 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
           name="addressFrom.streetSuffix"
           value={newShipment.addressFrom.streetSuffix}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
-        Postcode:
+        * Postcode:
         <input
           name="addressFrom.postcode"
           value={newShipment.addressFrom.postcode}
@@ -193,7 +217,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        City:
+        * City:
         <input
           name="addressFrom.city"
           value={newShipment.addressFrom.city}
@@ -202,7 +226,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        Country:
+        * Country:
         <input
           name="addressFrom.country"
           value={newShipment.addressFrom.country}
@@ -212,7 +236,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
       </label>
       <h3>Address To:</h3>
       <label>
-        Street Number:
+        * Street Number:
         <input
           name="addressTo.streetNr"
           value={newShipment.addressTo.streetNr}
@@ -221,7 +245,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        Street Name:
+        * Street Name:
         <input
           name="addressTo.streetName"
           value={newShipment.addressTo.streetName}
@@ -235,11 +259,10 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
           name="addressTo.streetSuffix"
           value={newShipment.addressTo.streetSuffix}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
-        Postcode:
+        * Postcode:
         <input
           name="addressTo.postcode"
           value={newShipment.addressTo.postcode}
@@ -248,7 +271,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        City:
+        * City:
         <input
           name="addressTo.city"
           value={newShipment.addressTo.city}
@@ -257,7 +280,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
         />
       </label>
       <label>
-        Country:
+        * Country:
         <input
           name="addressTo.country"
           value={newShipment.addressTo.country}
@@ -267,7 +290,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
       </label>
       <h3>Order:</h3>
       <label>
-        Order ID:
+        * Order ID:
         <input
           name="order.id"
           value={newShipment.order.id}
@@ -295,7 +318,7 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
       </label>
       <h3>Related Customer:</h3>
       <label>
-        Customer ID:
+        * Customer ID:
         <input
           name="relatedCustomer.id"
           value={newShipment.relatedCustomer.id}
@@ -318,7 +341,6 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
           name="relatedCustomer.description"
           value={newShipment.relatedCustomer.description}
           onChange={handleChange}
-          required
         />
       </label>
       <label>
@@ -331,7 +353,14 @@ export function CreateShipment({ setNotCreating }: ICreateShipment) {
           required
         />
       </label>
-      <button type="submit">Create</button>
+      <button
+        type="button"
+        onClick={() => {
+          checkValidity();
+        }}
+      >
+        Create
+      </button>
       <button
         type="button"
         onClick={() => {

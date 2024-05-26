@@ -9,7 +9,7 @@ export enum Status {
   error = "Error",
 }
 
-interface IAddress {
+export interface IAddress {
   id: string;
   streetNr: string;
   streetName: string;
@@ -19,14 +19,14 @@ interface IAddress {
   country: string;
 }
 
-interface IOrder {
+export interface IOrder {
   id: string;
   href: string;
   name: string;
   referredType: string;
 }
 
-interface ICustomer {
+export interface ICustomer {
   id: string;
   href: string;
   name: string;
@@ -82,8 +82,53 @@ export interface IEditShipment {
 
 export interface ICreateShipment {
   setNotCreating: Function;
+  addShipment: Function;
 }
 
 export interface IHead {
   setNotCreating: Function;
 }
+
+export const initialShipment: IShipment = {
+  id: "",
+  carrier: "",
+  trackingCode: "",
+  carrierTrackingUrl: "",
+  trackingDate: new Date(),
+  status: Status.initialized,
+  statusChangeDate: new Date(),
+  statusChangeReason: "",
+  weight: 0,
+  estimatedDeliveryDate: new Date(),
+  addressFrom: {
+    id: "",
+    streetNr: "",
+    streetName: "",
+    streetSuffix: "",
+    postcode: "",
+    city: "",
+    country: "",
+  },
+  addressTo: {
+    id: "",
+    streetNr: "",
+    streetName: "",
+    streetSuffix: "",
+    postcode: "",
+    city: "",
+    country: "",
+  },
+  order: {
+    id: "",
+    href: "",
+    name: "",
+    referredType: "",
+  },
+  relatedCustomer: {
+    id: "",
+    href: "",
+    name: "",
+    description: "",
+  },
+  createDate: new Date(),
+};
