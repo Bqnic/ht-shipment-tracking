@@ -12,6 +12,8 @@ export default function App() {
   const [shipmentArr, setShipmentArr] = useState([...shipments]);
   const [detailsNotEdit, setDetailsNotEdit] = useState(true);
   const [notCreating, setNotCreating] = useState(true);
+  const [filter, setFilter] = useState("nofilter");
+  const [subFilter, setSubFilter] = useState("");
 
   function deleteFromShipmentArr(shipment: IShipment) {
     const tempArr = [...shipmentArr];
@@ -52,6 +54,10 @@ export default function App() {
                 deleteFromShipmentArr={deleteFromShipmentArr}
                 setDetailsNotEdit={setDetailsNotEdit}
                 setNotCreating={setNotCreating}
+                filter={filter}
+                subFilter={subFilter}
+                setFilter={setFilter}
+                setSubFilter={setSubFilter}
               />
             ) : (
               <CreateShipment

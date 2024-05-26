@@ -35,6 +35,9 @@ export interface ICustomer {
 
 export interface ISelectorComp {
   setFilter: Function;
+  setSubFilter: Function;
+  filter: string;
+  subFilter: string;
 }
 
 export interface IShipment {
@@ -59,6 +62,8 @@ export interface IShipmentsComp {
   shipmentArr: IShipment[];
   deleteFromShipmentArr: Function;
   setDetailsNotEdit: Function;
+  filter: string;
+  subFilter: string;
 }
 
 export interface ITrackingComp {
@@ -66,6 +71,10 @@ export interface ITrackingComp {
   deleteFromShipmentArr: Function;
   setDetailsNotEdit: Function;
   setNotCreating: Function;
+  filter: string;
+  setFilter: Function;
+  subFilter: string;
+  setSubFilter: Function;
 }
 
 export interface IDetailedShipmentComp {

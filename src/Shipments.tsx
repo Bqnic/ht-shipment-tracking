@@ -1,16 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { IShipmentsComp } from "./assets/Interfaces";
+import { IShipmentsComp, Status } from "./assets/Interfaces";
 
 export default function Shipments({
   shipmentArr,
   deleteFromShipmentArr,
   setDetailsNotEdit,
+  filter,
+  subFilter,
 }: IShipmentsComp) {
   const navigate = useNavigate();
+  let filteredArr = [];
+
+  if (filter === "id") {
+    filteredArr = shipmentArr.filter((s) => s.id === subFilter);
+  } else if (filter === "customerID") {
+    filteredArr = shipmentArr.filter((s) => s.relatedCustomer.id === subFilter);
+  } else if (filter === "orderID") {
+    filteredArr = shipmentArr.filter((s) => s.order.id === subFilter);
+  } else if (filter === "status") {
+    filteredArr = shipmentArr.filter((s) => s.status === subFilter);
+  } else {
+    filteredArr = [...shipmentArr];
+  }
 
   return (
     <div className="shipments-wrapper">
-      {shipmentArr.map((shipment, index) => (
+      {filteredArr.map((shipment, index) => (
         <div key={index} className="shipment-wrapper">
           <div className="shipment">
             <h3>Shipment ID: {shipment.id}</h3>
