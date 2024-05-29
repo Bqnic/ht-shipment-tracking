@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IShipmentsComp, Status } from "./assets/Interfaces";
+import { IShipmentsComp } from "./assets/Interfaces";
 
 export default function Shipments({
   shipmentArr,
@@ -52,7 +52,7 @@ export default function Shipments({
               </a>
             </p>
           </div>
-          <div className="shipment-btns">
+          <div className="shipment-main-btns">
             <button
               onClick={() => {
                 setDetailsNotEdit(true);

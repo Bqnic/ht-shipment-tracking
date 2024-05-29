@@ -88,7 +88,7 @@ select {
   border: 1px solid black;
   padding: 4px;
 }
-.shipment-btns {
+.shipment-main-btns {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,9 +112,10 @@ select {
 }
 .edit-shipment,
 .create-shipment {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 .go-back {
   background: none;
@@ -138,4 +139,40 @@ select {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.shipment-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+}
+.shipment-btns button {
+  background: none;
+  border: 1px solid black;
+  padding: 10px;
+  width: 100px;
+}
+.shipment-btns button:first-child {
+  background-color: lightgreen;
+}
+.shipment-btns button:last-child {
+  background-color: #fca5a5;
+}
+.form-group {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+input {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 180px;
+}
+textarea {
+  width: 180px;
+}
+
+@media screen and (m) {
 }

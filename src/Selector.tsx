@@ -15,52 +15,20 @@ export default function Selector({
       <div>
         <div className="selector">
           <p>Get by: </p>
-          <select name="filter" id="filter" value={selected}>
-            <option
-              value="nofilter"
-              onClick={() => {
-                setSelected("nofilter");
-                setSubSelector("");
-              }}
-            >
-              No filter
-            </option>
-            <option
-              value="id"
-              onClick={() => {
-                setSelected("id");
-                setSubSelector("");
-              }}
-            >
-              Shipment ID
-            </option>
-            <option
-              value="customerID"
-              onClick={() => {
-                setSelected("customerID");
-                setSubSelector("");
-              }}
-            >
-              Customer ID
-            </option>
-            <option
-              value="orderID"
-              onClick={() => {
-                setSelected("orderID");
-                setSubSelector("");
-              }}
-            >
-              Order ID
-            </option>
-            <option
-              value="status"
-              onClick={() => {
-                setSelected("status");
-                setSubSelector("Initialized");
-              }}
-            >
-              Status
-            </option>
+          <select
+            name="filter"
+            id="filter"
+            value={selected}
+            onChange={(e) => {
+              setSelected(e.target.value);
+              setSubSelector("");
+            }}
+          >
+            <option value="nofilter">No filter</option>
+            <option value="id">Shipment ID</option>
+            <option value="customerID">Customer ID</option>
+            <option value="orderID">Order ID</option>
+            <option value="status">Status</option>
           </select>
         </div>
         <div className="detailed-selector">
@@ -78,49 +46,22 @@ export default function Selector({
             </div>
           ) : null}
           {selected === "status" ? (
-            <select name="status-filter" id="status-filter" value={subSelector}>
-              <option
-                value="Initialized"
-                onClick={() => setSubSelector("Initialized")}
-              >
-                Initialized
-              </option>
-              <option
-                value="In process"
-                onClick={() => setSubSelector("In process")}
-              >
-                In process
-              </option>
-              <option
-                value="Processed"
-                onClick={() => setSubSelector("Processed")}
-              >
-                Processed
-              </option>
+            <select
+              name="status-filter"
+              id="status-filter"
+              value={subSelector}
+              onChange={(e) => setSubSelector(e.target.value)}
+            >
+              <option value="Initialized">Initialized</option>
+              <option value="In process">In process</option>
+              <option value="Processed">Processed</option>
               <option value="Shipped" onClick={() => setSubSelector("Shipped")}>
                 Shipped
               </option>
-              <option
-                value="In customs"
-                onClick={() => setSubSelector("In customs")}
-              >
-                In customs
-              </option>
-              <option
-                value="Delivered"
-                onClick={() => setSubSelector("Delivered")}
-              >
-                Delivered
-              </option>
-              <option
-                value="Returned"
-                onClick={() => setSubSelector("Returned")}
-              >
-                Returned
-              </option>
-              <option value="Error" onClick={() => setSubSelector("Error")}>
-                Error
-              </option>
+              <option value="In customs">In customs</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Returned">Returned</option>
+              <option value="Error">Error</option>
             </select>
           ) : null}
         </div>

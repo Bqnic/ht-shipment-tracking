@@ -91,41 +91,41 @@ export function EditShipment({
   return (
     <form className="edit-shipment">
       <h2>Edit Shipment ID: {editableShipment.id}</h2>
-      <label>
-        * Carrier:
+      <div className="form-group">
+        <label>* Carrier:</label>
         <input
           name="carrier"
           value={editableShipment.carrier}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Tracking Code:
+      </div>
+      <div className="form-group">
+        <label>* Tracking Code:</label>
         <input
           name="trackingCode"
           value={editableShipment.trackingCode}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Carrier Tracking URL:
+      </div>
+      <div className="form-group">
+        <label>Carrier Tracking URL:</label>
         <input
           name="carrierTrackingUrl"
           value={editableShipment.carrierTrackingUrl}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Tracking Date:
+      </div>
+      <div className="form-group">
+        <label>Tracking Date:</label>
         <input
           name="trackingDate"
           type="date"
           value={editableShipment.trackingDate.toISOString().substr(0, 10)}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Status:
+      </div>
+      <div className="form-group">
+        <label>Status:</label>
         <select
           name="status"
           value={editableShipment.status}
@@ -137,35 +137,35 @@ export function EditShipment({
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Status Change Date:
+      </div>
+      <div className="form-group">
+        <label>Status Change Date:</label>
         <input
           name="statusChangeDate"
           type="date"
           value={editableShipment.statusChangeDate.toISOString().substr(0, 10)}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Status Change Reason:
+      </div>
+      <div className="form-group">
+        <label>Status Change Reason:</label>
         <textarea
           name="statusChangeReason"
           value={editableShipment.statusChangeReason}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Weight:
+      </div>
+      <div className="form-group">
+        <label>* Weight:</label>
         <input
           name="weight"
           type="number"
           value={editableShipment.weight}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Estimated Delivery Date:
+      </div>
+      <div className="form-group">
+        <label>Estimated Delivery Date:</label>
         <input
           name="estimatedDeliveryDate"
           type="date"
@@ -174,181 +174,183 @@ export function EditShipment({
             .substr(0, 10)}
           onChange={handleChange}
         />
-      </label>
+      </div>
       <h3>Address From:</h3>
-      <label>
-        * Street Number:
+      <div className="form-group">
+        <label>* Street Number:</label>
         <input
           name="addressFrom.streetNr"
           value={editableShipment.addressFrom.streetNr}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Street Name:
+      </div>
+      <div className="form-group">
+        <label>* Street Name:</label>
         <input
           name="addressFrom.streetName"
           value={editableShipment.addressFrom.streetName}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Street Suffix:
+      </div>
+      <div className="form-group">
+        <label>Street Suffix:</label>
         <input
           name="addressFrom.streetSuffix"
           value={editableShipment.addressFrom.streetSuffix}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Postcode:
+      </div>
+      <div className="form-group">
+        <label>* Postcode:</label>
         <input
           name="addressFrom.postcode"
           value={editableShipment.addressFrom.postcode}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * City:
+      </div>
+      <div className="form-group">
+        <label>* City:</label>
         <input
           name="addressFrom.city"
           value={editableShipment.addressFrom.city}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Country:
+      </div>
+      <div className="form-group">
+        <label>* Country:</label>
         <input
           name="addressFrom.country"
           value={editableShipment.addressFrom.country}
           onChange={handleChange}
         />
-      </label>
+      </div>
       <h3>Address To:</h3>
-      <label>
-        * Street Number:
+      <div className="form-group">
+        <label>* Street Number:</label>
         <input
           name="addressTo.streetNr"
           value={editableShipment.addressTo.streetNr}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Street Name:
+      </div>
+      <div className="form-group">
+        <label>* Street Name:</label>
         <input
           name="addressTo.streetName"
           value={editableShipment.addressTo.streetName}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Street Suffix:
+      </div>
+      <div className="form-group">
+        <label>Street Suffix:</label>
         <input
           name="addressTo.streetSuffix"
           value={editableShipment.addressTo.streetSuffix}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Postcode:
+      </div>
+      <div className="form-group">
+        <label>* Postcode:</label>
         <input
           name="addressTo.postcode"
           value={editableShipment.addressTo.postcode}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * City:
+      </div>
+      <div className="form-group">
+        <label>* City:</label>
         <input
           name="addressTo.city"
           value={editableShipment.addressTo.city}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Country:
+      </div>
+      <div className="form-group">
+        <label>* Country:</label>
         <input
           name="addressTo.country"
           value={editableShipment.addressTo.country}
           onChange={handleChange}
         />
-      </label>
+      </div>
       <h3>Order:</h3>
-      <label>
-        * Order ID:
+      <div className="form-group">
+        <label>* Order ID:</label>
         <input
           name="order.id"
           value={editableShipment.order.id}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Order Name:
+      </div>
+      <div className="form-group">
+        <label>Order Name:</label>
         <input
           name="order.name"
           value={editableShipment.order.name}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Order Type:
+      </div>
+      <div className="form-group">
+        <label>Order Type:</label>
         <input
           name="order.referredType"
           value={editableShipment.order.referredType}
           onChange={handleChange}
         />
-      </label>
+      </div>
       <h3>Related Customer:</h3>
-      <label>
-        * Customer ID:
+      <div className="form-group">
+        <label>* Customer ID:</label>
         <input
           name="relatedCustomer.id"
           value={editableShipment.relatedCustomer.id}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Customer Name:
+      </div>
+      <div className="form-group">
+        <label>Customer Name:</label>
         <input
           name="relatedCustomer.name"
           value={editableShipment.relatedCustomer.name}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Customer Description:
+      </div>
+      <div className="form-group">
+        <label>Customer Description:</label>
         <input
           name="relatedCustomer.description"
           value={editableShipment.relatedCustomer.description}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Create Date:
+      </div>
+      <div className="form-group">
+        <label>Create Date:</label>
         <input
           name="createDate"
           type="date"
           value={editableShipment.createDate.toISOString().substr(0, 10)}
           onChange={handleChange}
         />
-      </label>
-      <button
-        type="button"
-        onClick={() => {
-          checkValidity();
-        }}
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setDetailsNotEdit(true);
-          navigate(`/shipmentTracking/${editableShipment.id}`);
-        }}
-      >
-        Cancel
-      </button>
+      </div>
+      <div className="shipment-btns">
+        <button
+          type="button"
+          onClick={() => {
+            checkValidity();
+          }}
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setDetailsNotEdit(true);
+            navigate(`/shipmentTracking/${editableShipment.id}`);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

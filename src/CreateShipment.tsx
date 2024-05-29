@@ -90,35 +90,35 @@ export function CreateShipment({
   return (
     <form className="create-shipment">
       <h2>Create New Shipment</h2>
-      <label>
-        * Carrier:
+      <div className="form-group">
+        <label>* Carrier:</label>
         <input
           name="carrier"
           value={newShipment.carrier}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * Tracking Code:
+      </div>
+      <div className="form-group">
+        <label>* Tracking Code:</label>
         <input
           name="trackingCode"
           value={newShipment.trackingCode}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Carrier Tracking URL:
+      </div>
+      <div className="form-group">
+        <label>Carrier Tracking URL:</label>
         <input
           name="carrierTrackingUrl"
           value={newShipment.carrierTrackingUrl}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Tracking Date:
+      </div>
+      <div className="form-group">
+        <label>Tracking Date:</label>
         <input
           name="trackingDate"
           type="date"
@@ -126,9 +126,9 @@ export function CreateShipment({
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Status:
+      </div>
+      <div className="form-group">
+        <label>Status:</label>
         <select
           name="status"
           value={newShipment.status}
@@ -141,9 +141,9 @@ export function CreateShipment({
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Status Change Date:
+      </div>
+      <div className="form-group">
+        <label>Status Change Date:</label>
         <input
           name="statusChangeDate"
           type="date"
@@ -151,17 +151,17 @@ export function CreateShipment({
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Status Change Reason:
+      </div>
+      <div className="form-group">
+        <label>Status Change Reason:</label>
         <textarea
           name="statusChangeReason"
           value={newShipment.statusChangeReason}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Weight:
+      </div>
+      <div className="form-group">
+        <label>* Weight:</label>
         <input
           name="weight"
           type="number"
@@ -169,9 +169,9 @@ export function CreateShipment({
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Estimated Delivery Date:
+      </div>
+      <div className="form-group">
+        <label>Estimated Delivery Date:</label>
         <input
           name="estimatedDeliveryDate"
           type="date"
@@ -179,172 +179,172 @@ export function CreateShipment({
           onChange={handleChange}
           required
         />
-      </label>
+      </div>
       <h3>Address From:</h3>
-      <label>
-        * Street Number:
+      <div className="form-group">
+        <label>* Street Number:</label>
         <input
           name="addressFrom.streetNr"
           value={newShipment.addressFrom.streetNr}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * Street Name:
+      </div>
+      <div className="form-group">
+        <label>* Street Name:</label>
         <input
           name="addressFrom.streetName"
           value={newShipment.addressFrom.streetName}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Street Suffix:
+      </div>
+      <div className="form-group">
+        <label>Street Suffix:</label>
         <input
           name="addressFrom.streetSuffix"
           value={newShipment.addressFrom.streetSuffix}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Postcode:
+      </div>
+      <div className="form-group">
+        <label>* Postcode:</label>
         <input
           name="addressFrom.postcode"
           value={newShipment.addressFrom.postcode}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * City:
+      </div>
+      <div className="form-group">
+        <label>* City:</label>
         <input
           name="addressFrom.city"
           value={newShipment.addressFrom.city}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * Country:
+      </div>
+      <div className="form-group">
+        <label>* Country:</label>
         <input
           name="addressFrom.country"
           value={newShipment.addressFrom.country}
           onChange={handleChange}
           required
         />
-      </label>
+      </div>
       <h3>Address To:</h3>
-      <label>
-        * Street Number:
+      <div className="form-group">
+        <label>* Street Number:</label>
         <input
           name="addressTo.streetNr"
           value={newShipment.addressTo.streetNr}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * Street Name:
+      </div>
+      <div className="form-group">
+        <label>* Street Name:</label>
         <input
           name="addressTo.streetName"
           value={newShipment.addressTo.streetName}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Street Suffix:
+      </div>
+      <div className="form-group">
+        <label>Street Suffix:</label>
         <input
           name="addressTo.streetSuffix"
           value={newShipment.addressTo.streetSuffix}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        * Postcode:
+      </div>
+      <div className="form-group">
+        <label>* Postcode:</label>
         <input
           name="addressTo.postcode"
           value={newShipment.addressTo.postcode}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * City:
+      </div>
+      <div className="form-group">
+        <label>* City:</label>
         <input
           name="addressTo.city"
           value={newShipment.addressTo.city}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        * Country:
+      </div>
+      <div className="form-group">
+        <label>* Country:</label>
         <input
           name="addressTo.country"
           value={newShipment.addressTo.country}
           onChange={handleChange}
           required
         />
-      </label>
+      </div>
       <h3>Order:</h3>
-      <label>
-        * Order ID:
+      <div className="form-group">
+        <label>* Order ID:</label>
         <input
           name="order.id"
           value={newShipment.order.id}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Order Name:
+      </div>
+      <div className="form-group">
+        <label>Order Name:</label>
         <input
           name="order.name"
           value={newShipment.order.name}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Order Type:
+      </div>
+      <div className="form-group">
+        <label>Order Type:</label>
         <input
           name="order.referredType"
           value={newShipment.order.referredType}
           onChange={handleChange}
           required
         />
-      </label>
+      </div>
       <h3>Related Customer:</h3>
-      <label>
-        * Customer ID:
+      <div className="form-group">
+        <label>* Customer ID:</label>
         <input
           name="relatedCustomer.id"
           value={newShipment.relatedCustomer.id}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Customer Name:
+      </div>
+      <div className="form-group">
+        <label>Customer Name:</label>
         <input
           name="relatedCustomer.name"
           value={newShipment.relatedCustomer.name}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Customer Description:
+      </div>
+      <div className="form-group">
+        <label>Customer Description:</label>
         <input
           name="relatedCustomer.description"
           value={newShipment.relatedCustomer.description}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Create Date:
+      </div>
+      <div className="form-group">
+        <label>Create Date:</label>
         <input
           name="createDate"
           type="date"
@@ -352,23 +352,25 @@ export function CreateShipment({
           onChange={handleChange}
           required
         />
-      </label>
-      <button
-        type="button"
-        onClick={() => {
-          checkValidity();
-        }}
-      >
-        Create
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setNotCreating(true);
-        }}
-      >
-        Cancel
-      </button>
+      </div>
+      <div className="shipment-btns">
+        <button
+          type="button"
+          onClick={() => {
+            checkValidity();
+          }}
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setNotCreating(true);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

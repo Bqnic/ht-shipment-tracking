@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Selector from "./Selector";
 import Shipments from "./Shipments";
 import { ITrackingComp } from "./assets/Interfaces";
