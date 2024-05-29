@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Tracking from "./Tracking.tsx";
-import DetailedShipment from "./DetailedShipment.tsx";
+import DetailedShipment from "./shipments/DetailedShipment.tsx";
 import { IShipment } from "./assets/Interfaces.tsx";
 import { shipments } from "./assets/mockShipment.tsx";
 import { useState } from "react";
 import Head from "./Head.tsx";
-import { EditShipment } from "./EditShipment.tsx";
-import { CreateShipment } from "./CreateShipment.tsx";
+import { EditShipment } from "./shipments/EditShipment.tsx";
+import { CreateShipment } from "./shipments/CreateShipment.tsx";
 
 export default function App() {
   const [shipmentArr, setShipmentArr] = useState([...shipments]);

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { IDetailedShipmentComp } from "./assets/Interfaces";
+import { IDetailedShipmentComp } from "../assets/Interfaces";
 import { useNavigate } from "react-router-dom";
 
 export default function DetailedShipment({

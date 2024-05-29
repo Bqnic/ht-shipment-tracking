@@ -3,7 +3,7 @@ import {
   IShipment,
   Status,
   initialShipment,
-} from "./assets/Interfaces";
+} from "../assets/Interfaces";
 import { useState } from "react";
 
 export function CreateShipment({

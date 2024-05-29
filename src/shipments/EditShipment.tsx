@@ -1,4 +1,4 @@
-import { IEditShipment, Status } from "./assets/Interfaces.tsx";
+import { IEditShipment, Status } from "../assets/Interfaces.tsx";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

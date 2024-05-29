@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { IShipmentsComp } from "./assets/Interfaces";
+import { IShipmentsComp } from "../assets/Interfaces";
 
-export default function Shipments({
+export default function MobileShipments({
   shipmentArr,
   deleteFromShipmentArr,
   setDetailsNotEdit,

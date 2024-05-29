@@ -174,5 +174,9 @@ textarea {
   width: 180px;
 }
 
-@media screen and (m) {
+@media screen and (min-width: 900px) {
+  .shipment {
+    display: flex;
+    gap: 10px;
+  }
 }

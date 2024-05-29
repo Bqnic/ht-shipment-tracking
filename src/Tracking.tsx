@@ -1,6 +1,7 @@
 import Selector from "./Selector";
-import Shipments from "./Shipments";
+import MobileShipments from "./shipments/MobileShipments";
 import { ITrackingComp } from "./assets/Interfaces";
+import useViewport from "./assets/useViewport";
 
 export default function Tracking({
   shipmentArr,
@@ -12,6 +13,8 @@ export default function Tracking({
   subFilter,
   setSubFilter,
 }: ITrackingComp) {
+  const screenWidth = useViewport();
+
   return (
     <div className="tracking">
       <Selector
@@ -28,13 +31,15 @@ export default function Tracking({
       >
         +
       </button>
-      <Shipments
-        shipmentArr={shipmentArr}
-        deleteFromShipmentArr={deleteFromShipmentArr}
-        setDetailsNotEdit={setDetailsNotEdit}
-        filter={filter}
-        subFilter={subFilter}
-      ></Shipments>
+      {screenWidth < 900 ? (
+        <MobileShipments
+          shipmentArr={shipmentArr}
+          deleteFromShipmentArr={deleteFromShipmentArr}
+          setDetailsNotEdit={setDetailsNotEdit}
+          filter={filter}
+          subFilter={subFilter}
+        />
+      ) : null}
     </div>
   );
 }
