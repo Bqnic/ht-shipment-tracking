@@ -20,7 +20,7 @@ export default function DetailedShipment({
           navigate("/shipmentTracking");
         }}
       >
-        &lt;-
+        ◀
       </button>
       <div className="detailed-shipment-wrapper">
         <div className="detailed-shipment">
