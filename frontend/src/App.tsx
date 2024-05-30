@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Head from "./Head.tsx";
 import { EditShipment } from "./shipments/EditShipment.tsx";
 import { CreateShipment } from "./shipments/CreateShipment.tsx";
-import getShipments from "./apiCalls/getShipments.ts";
+import { getShipments } from "./apiCalls/shipmentApi.ts";
 
 export default function App() {
   const [shipmentArr, setShipmentArr] = useState<IShipment[]>([]);
@@ -85,13 +85,11 @@ export default function App() {
             element={
               detailsNotEdit ? (
                 <DetailedShipment
-                  shipmentArr={shipmentArr}
                   deleteFromShipmentArr={deleteFromShipmentArr}
                   setDetailsNotEdit={setDetailsNotEdit}
                 />
               ) : (
                 <EditShipment
-                  shipmentArr={shipmentArr}
                   editShipmentArr={editShipmentArr}
                   setDetailsNotEdit={setDetailsNotEdit}
                 />

@@ -4,9 +4,76 @@ const db = require("../database.js");
 
 shipmentTrackingRouter.get("/", async (req, res) => {
   try {
-    const sql = "select * from ShipmentTracking";
+    const sql =
+      "select id, status, carrier, orderid, relatedcustomerid from ShipmentTracking";
+
+    const getOrderHref = (orderId) => {
+      return new Promise((resolve, reject) => {
+        const orderHrefSql = "select href from OrderRefType where id = ?";
+        db.get(orderHrefSql, [orderId], (err, row) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row ? row.href : null);
+          }
+        });
+      });
+    };
+
+    const getCustomerHref = (customerId) => {
+      return new Promise((resolve, reject) => {
+        const customerHrefSql = "select href from CustomerRefType where id = ?";
+        db.get(customerHrefSql, [customerId], (err, row) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row ? row.href : null);
+          }
+        });
+      });
+    };
+
     const rows = await new Promise((resolve, reject) => {
       db.all(sql, [], (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+
+    const result = await Promise.all(
+      rows.map(async (row) => {
+        const [orderHref, customerHref] = await Promise.all([
+          getOrderHref(row.orderId),
+          getCustomerHref(row.relatedCustomerId),
+        ]);
+
+        return {
+          id: row.id,
+          status: row.status,
+          carrier: row.carrier,
+          orderId: row.orderId,
+          relatedCustomerId: row.relatedCustomerId,
+          orderHref: orderHref,
+          relatedCustomerHref: customerHref,
+        };
+      })
+    );
+
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+shipmentTrackingRouter.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const sql = "select * from ShipmentTracking where id = ?";
+    const row = await new Promise((resolve, reject) => {
+      db.get(sql, [id], (err, rows) => {
         if (err) {
           reject(err);
         } else {
@@ -54,34 +121,30 @@ shipmentTrackingRouter.get("/", async (req, res) => {
       });
     };
 
-    const result = await Promise.all(
-      rows.map(async (row) => {
-        const [addressFrom, addressTo, order, relatedCustomer] =
-          await Promise.all([
-            getAddress(row.addressFromId),
-            getAddress(row.addressToId),
-            getOrder(row.orderId),
-            getCustomer(row.relatedCustomerId),
-          ]);
+    const [addressFrom, addressTo, order, relatedCustomer] = await Promise.all([
+      getAddress(row.addressFromId),
+      getAddress(row.addressToId),
+      getOrder(row.orderId),
+      getCustomer(row.relatedCustomerId),
+    ]);
 
-        return {
-          id: row.id,
-          carrier: row.carrier,
-          trackingCode: row.trackingCode,
-          carrierTrackingUrl: row.carrierTrackingUrl,
-          trackingDate: row.trackingDate,
-          status: row.status,
-          statusChangeDate: row.statusChangeDate,
-          weight: row.weight,
-          estimatedDeliveryDate: row.estimatedDeliveryDate,
-          addressFrom: addressFrom,
-          addressTo: addressTo,
-          order: order,
-          relatedCustomer: relatedCustomer,
-          createDate: row.createDate,
-        };
-      })
-    );
+    const result = {
+      id: row.id,
+      carrier: row.carrier,
+      trackingCode: row.trackingCode,
+      carrierTrackingUrl: row.carrierTrackingUrl,
+      trackingDate: row.trackingDate,
+      status: row.status,
+      statusChangeDate: row.statusChangeDate,
+      statusChangeReason: row.statusChangeReason,
+      weight: row.weight,
+      estimatedDeliveryDate: row.estimatedDeliveryDate,
+      addressFrom: addressFrom,
+      addressTo: addressTo,
+      order: order,
+      relatedCustomer: relatedCustomer,
+      createDate: row.createDate,
+    };
 
     res.json(result);
   } catch (error) {

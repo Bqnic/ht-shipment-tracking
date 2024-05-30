@@ -1,6 +1,6 @@
 import {
   ICreateShipment,
-  IShipment,
+  IDetailedShipment,
   Status,
   initialShipment,
 } from "../assets/Interfaces";
@@ -10,7 +10,7 @@ export function CreateShipment({
   setNotCreating,
   addShipment,
 }: ICreateShipment) {
-  const [newShipment, setNewShipment] = useState<IShipment>({
+  const [newShipment, setNewShipment] = useState<IDetailedShipment>({
     ...initialShipment,
   });
 

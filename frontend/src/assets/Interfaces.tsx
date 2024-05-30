@@ -43,6 +43,16 @@ export interface ISelectorComp {
 export interface IShipment {
   id: string;
   carrier: string;
+  status: keyof typeof Status;
+  orderId: string;
+  orderHref: string;
+  relatedCustomerId: string;
+  relatedCustomerHref: string;
+}
+
+export interface IDetailedShipment {
+  id: string;
+  carrier: string;
   trackingCode: string;
   carrierTrackingUrl: string;
   trackingDate: Date | string;
@@ -78,13 +88,11 @@ export interface ITrackingComp {
 }
 
 export interface IDetailedShipmentComp {
-  shipmentArr: IShipment[];
   deleteFromShipmentArr: Function;
   setDetailsNotEdit: Function;
 }
 
 export interface IEditShipment {
-  shipmentArr: IShipment[];
   editShipmentArr: Function;
   setDetailsNotEdit: Function;
 }
@@ -98,7 +106,7 @@ export interface IHead {
   setNotCreating: Function;
 }
 
-export const initialShipment: IShipment = {
+export const initialShipment: IDetailedShipment = {
   id: "",
   carrier: "",
   trackingCode: "",

@@ -14,9 +14,9 @@ export default function DesktopShipments({
   if (filter === "id") {
     filteredArr = shipmentArr.filter((s) => s.id === subFilter);
   } else if (filter === "customerID") {
-    filteredArr = shipmentArr.filter((s) => s.relatedCustomer.id === subFilter);
+    filteredArr = shipmentArr.filter((s) => s.relatedCustomerId === subFilter);
   } else if (filter === "orderID") {
-    filteredArr = shipmentArr.filter((s) => s.order.id === subFilter);
+    filteredArr = shipmentArr.filter((s) => s.orderId === subFilter);
   } else if (filter === "status") {
     filteredArr = shipmentArr.filter((s) => s.status === subFilter);
   } else {
@@ -40,20 +40,20 @@ export default function DesktopShipments({
           <div>{shipment.carrier}</div>
           <div>
             <a
-              href={shipment.order.href}
+              href={shipment.orderHref}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {shipment.order.id}
+              {shipment.orderId}
             </a>
           </div>
           <div>
             <a
-              href={shipment.relatedCustomer.href}
+              href={shipment.relatedCustomerHref}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {shipment.relatedCustomer.id}
+              {shipment.relatedCustomerId}
             </a>
           </div>
           <div className="shipment-main-btns">
