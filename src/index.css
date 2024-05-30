@@ -7,10 +7,15 @@ html {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 body {
   width: 100vw;
   height: 100vh;
+  max-width: 1200px;
 }
 .head {
   display: flex;
@@ -73,7 +78,7 @@ select {
   border-bottom: 1px solid black;
   padding: 6px;
 }
-#detail-btn {
+.detail-btn {
   background-color: lightgreen;
   border: 1px solid black;
   padding: 4px;
@@ -175,8 +180,41 @@ textarea {
 }
 
 @media screen and (min-width: 900px) {
-  .shipment {
-    display: flex;
+  .shipments-wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+    align-items: center;
+  }
+  .table-header,
+  .shipment-row {
+    display: contents;
+  }
+  .table-header div {
+    font-weight: bold;
+  }
+  .table-header div,
+  .shipment-row div {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    height: 35px;
+  }
+  .shipment-main-btns {
+    display: flex;
+    flex-direction: row;
+    height: 25px;
+    gap: 5px;
+  }
+  .shipment-main-btns button {
+    width: 55px;
+  }
+  .detailed-shipment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 0 40px;
+    font-size: 1.1rem;
   }
 }

@@ -58,9 +58,9 @@ export default function MobileShipments({
                 setDetailsNotEdit(true);
                 navigate(`/shipmentTracking/${shipment.id}`);
               }}
-              id="detail-btn"
+              className="detail-btn"
             >
-              View details
+              Details
             </button>
             <button
               className="edit-btn"

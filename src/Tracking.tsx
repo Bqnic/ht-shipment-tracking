@@ -2,6 +2,7 @@ import Selector from "./Selector";
 import MobileShipments from "./shipments/MobileShipments";
 import { ITrackingComp } from "./assets/Interfaces";
 import useViewport from "./assets/useViewport";
+import DesktopShipments from "./shipments/DesktopShipments";
 
 export default function Tracking({
   shipmentArr,
@@ -39,7 +40,15 @@ export default function Tracking({
           filter={filter}
           subFilter={subFilter}
         />
-      ) : null}
+      ) : (
+        <DesktopShipments
+          shipmentArr={shipmentArr}
+          deleteFromShipmentArr={deleteFromShipmentArr}
+          setDetailsNotEdit={setDetailsNotEdit}
+          filter={filter}
+          subFilter={subFilter}
+        />
+      )}
     </div>
   );
 }
