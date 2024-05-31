@@ -115,7 +115,7 @@ export function EditShipment({
           <input
             name="trackingDate"
             type="date"
-            value={editableShipment.trackingDate as string}
+            value={editableShipment.trackingDate as unknown as string}
             onChange={handleChange}
           />
         </div>
@@ -138,7 +138,7 @@ export function EditShipment({
           <input
             name="statusChangeDate"
             type="date"
-            value={editableShipment.statusChangeDate as string}
+            value={editableShipment.statusChangeDate as unknown as string}
             onChange={handleChange}
           />
         </div>
@@ -168,7 +168,7 @@ export function EditShipment({
           <input
             name="estimatedDeliveryDate"
             type="date"
-            value={editableShipment.estimatedDeliveryDate as string}
+            value={editableShipment.estimatedDeliveryDate as unknown as string}
             onChange={handleChange}
           />
         </div>
@@ -287,6 +287,14 @@ export function EditShipment({
             onChange={handleChange}
           />
         </div>
+        <div className="form-group">
+          <label>Order Href:</label>
+          <input
+            name="order.href"
+            value={editableShipment.order.href}
+            onChange={handleChange}
+          />
+        </div>
         <h3>Related Customer:</h3>
         <div className="form-group">
           <label>Customer Name:</label>
@@ -305,11 +313,19 @@ export function EditShipment({
           />
         </div>
         <div className="form-group">
+          <label>Customer Href:</label>
+          <input
+            name="relatedCustomer.href"
+            value={editableShipment.relatedCustomer.href}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
           <label>Create Date:</label>
           <input
             name="createDate"
             type="date"
-            value={editableShipment.createDate as string}
+            value={editableShipment.createDate as unknown as string}
             onChange={handleChange}
           />
         </div>

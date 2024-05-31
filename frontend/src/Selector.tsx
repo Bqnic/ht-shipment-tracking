@@ -28,7 +28,12 @@ export default function Selector({
             <option value="id">Shipment ID</option>
             <option value="customerID">Customer ID</option>
             <option value="orderID">Order ID</option>
-            <option value="status">Status</option>
+            <option
+              value="status"
+              onClick={() => setSubSelector("Initialized")}
+            >
+              Status
+            </option>
           </select>
         </div>
         <div className="detailed-selector">
@@ -52,14 +57,14 @@ export default function Selector({
               value={subSelector}
               onChange={(e) => setSubSelector(e.target.value)}
             >
-              <option value="initialized">Initialized</option>
-              <option value="inProcess">In process</option>
-              <option value="processed">Processed</option>
-              <option value="shipped">Shipped</option>
-              <option value="inCustoms">In customs</option>
-              <option value="delivered">Delivered</option>
-              <option value="returned">Returned</option>
-              <option value="error">Error</option>
+              <option value="Initialized">Initialized</option>
+              <option value="In process">In process</option>
+              <option value="Processed">Processed</option>
+              <option value="Shipped">Shipped</option>
+              <option value="In customs">In customs</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Returned">Returned</option>
+              <option value="Error">Error</option>
             </select>
           ) : null}
         </div>

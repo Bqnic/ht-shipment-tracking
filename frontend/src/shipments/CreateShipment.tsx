@@ -31,6 +31,16 @@ export function CreateShipment({
           [child]: value,
         },
       });
+    } else if (
+      name === "trackingDate" ||
+      name === "statusChangeDate" ||
+      name === "estimatedDeliveryDate" ||
+      name === "createDate"
+    ) {
+      setNewShipment({
+        ...newShipment,
+        [name]: new Date(value),
+      });
     } else {
       setNewShipment({
         ...newShipment,
@@ -103,7 +113,7 @@ export function CreateShipment({
         <input
           name="trackingDate"
           type="date"
-          value={newShipment.trackingDate as string}
+          value={newShipment.trackingDate.toISOString().split("T")[0]}
           onChange={handleChange}
           required
         />
@@ -128,7 +138,7 @@ export function CreateShipment({
         <input
           name="statusChangeDate"
           type="date"
-          value={newShipment.statusChangeDate as string}
+          value={newShipment.statusChangeDate.toISOString().split("T")[0]}
           onChange={handleChange}
           required
         />
@@ -156,7 +166,7 @@ export function CreateShipment({
         <input
           name="estimatedDeliveryDate"
           type="date"
-          value={newShipment.estimatedDeliveryDate as string}
+          value={newShipment.estimatedDeliveryDate.toISOString().split("T")[0]}
           onChange={handleChange}
           required
         />
@@ -327,7 +337,7 @@ export function CreateShipment({
         <input
           name="createDate"
           type="date"
-          value={newShipment.createDate as string}
+          value={newShipment.createDate.toISOString().split("T")[0]}
           onChange={handleChange}
           required
         />

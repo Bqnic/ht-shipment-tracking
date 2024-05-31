@@ -54,16 +54,21 @@ export default function DetailedShipment({
                   {shipment?.trackingCode}
                 </a>
               </p>
-              <p>Tracking Date: {shipment?.trackingDate as string}</p>
+              <p>
+                Tracking Date: {shipment?.trackingDate as unknown as string}
+              </p>
               <p>
                 Status: <strong>{shipment?.status}</strong>
               </p>
-              <p>Status Change Date: {shipment?.statusChangeDate as string}</p>
+              <p>
+                Status Change Date:{" "}
+                {shipment?.statusChangeDate as unknown as string}
+              </p>
               <p>Status Change Reason: {shipment?.statusChangeReason}</p>
               <p>Weight: {shipment?.weight} kg</p>
               <p>
                 Estimated Delivery Date:{" "}
-                {shipment?.estimatedDeliveryDate as string}
+                {shipment?.estimatedDeliveryDate as unknown as string}
               </p>
             </div>
             <div>
@@ -124,7 +129,7 @@ export default function DetailedShipment({
                 Customer Description: {shipment?.relatedCustomer.description}
               </p>
             </div>
-            <p>Create Date: {shipment?.createDate as string}</p>
+            <p>Create Date: {shipment?.createDate as unknown as string}</p>
             <div className="buttons">
               <button
                 className="delete-btn"

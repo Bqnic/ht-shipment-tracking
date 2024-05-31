@@ -1,5 +1,5 @@
 export enum Status {
-  initialized = "Initialized",
+  Initialized = "Initialized",
   inProcess = "In process",
   processed = "Processed",
   shipped = "Shipped",
@@ -55,17 +55,17 @@ export interface IDetailedShipment {
   carrier: string;
   trackingCode: string;
   carrierTrackingUrl: string;
-  trackingDate: Date | string;
+  trackingDate: Date;
   status: keyof typeof Status;
-  statusChangeDate: Date | string;
+  statusChangeDate: Date;
   statusChangeReason: string;
   weight: number;
-  estimatedDeliveryDate: Date | string;
+  estimatedDeliveryDate: Date;
   addressFrom: IAddress;
   addressTo: IAddress;
   order: IOrder;
   relatedCustomer: ICustomer;
-  createDate: Date | string;
+  createDate: Date;
 }
 
 export interface IShipmentsComp {
@@ -112,7 +112,7 @@ export const initialShipment: IDetailedShipment = {
   trackingCode: "",
   carrierTrackingUrl: "",
   trackingDate: new Date(),
-  status: "initialized",
+  status: "Initialized",
   statusChangeDate: new Date(),
   statusChangeReason: "",
   weight: 0,

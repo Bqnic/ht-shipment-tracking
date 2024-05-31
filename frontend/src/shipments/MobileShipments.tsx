@@ -33,21 +33,13 @@ export default function MobileShipments({
             <p>Carrier: {shipment.carrier}</p>
             <p>
               Order ID:{" "}
-              <a
-                href={shipment.orderHref}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={shipment.orderHref} target="_blank">
                 {shipment.orderId}
               </a>
             </p>
             <p>
               Customer ID:{" "}
-              <a
-                href={shipment.relatedCustomerHref}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={shipment.relatedCustomerHref} target="_blank">
                 {shipment.relatedCustomerId}
               </a>
             </p>

@@ -209,7 +209,6 @@ button {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
-
     font-size: 0.95rem;
     align-items: center;
   }
