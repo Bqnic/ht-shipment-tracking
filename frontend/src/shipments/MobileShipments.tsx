@@ -65,7 +65,12 @@ export default function MobileShipments({
             </button>
             <button
               onClick={() => {
-                deleteFromShipmentArr(shipment);
+                const dlt = confirm(
+                  `Are you sure you want to delete shipment ${shipment.id}`
+                );
+                if (dlt) {
+                  deleteFromShipmentArr(shipment);
+                }
               }}
               className="delete-btn"
             >

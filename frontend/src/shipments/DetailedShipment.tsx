@@ -130,8 +130,13 @@ export default function DetailedShipment({
               <button
                 className="delete-btn"
                 onClick={() => {
-                  deleteFromShipmentArr(shipment);
-                  navigate("/shipmentTracking");
+                  const dlt = confirm(
+                    `Are you sure you want to delete shipment ${shipment?.id}`
+                  );
+                  if (dlt) {
+                    deleteFromShipmentArr(shipment);
+                    navigate("/shipmentTracking");
+                  }
                 }}
               >
                 Delete
