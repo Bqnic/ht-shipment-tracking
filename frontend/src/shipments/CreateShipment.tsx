@@ -66,9 +66,7 @@ export function CreateShipment({
       isNotEmpty(addressTo?.streetName) &&
       isNotEmpty(addressTo?.postcode) &&
       isNotEmpty(addressTo?.city) &&
-      isNotEmpty(addressTo?.country) &&
-      isNotEmpty(order?.id) &&
-      isNotEmpty(relatedCustomer?.id)
+      isNotEmpty(addressTo?.country)
     ) {
       addShipment(newShipment);
       setNotCreating(true);
@@ -280,15 +278,6 @@ export function CreateShipment({
       </div>
       <h3>Order:</h3>
       <div className="form-group">
-        <label>* Order ID:</label>
-        <input
-          name="order.id"
-          value={newShipment.order.id}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-group">
         <label>Order Name:</label>
         <input
           name="order.name"
@@ -307,15 +296,6 @@ export function CreateShipment({
         />
       </div>
       <h3>Related Customer:</h3>
-      <div className="form-group">
-        <label>* Customer ID:</label>
-        <input
-          name="relatedCustomer.id"
-          value={newShipment.relatedCustomer.id}
-          onChange={handleChange}
-          required
-        />
-      </div>
       <div className="form-group">
         <label>Customer Name:</label>
         <input

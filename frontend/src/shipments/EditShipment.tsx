@@ -79,9 +79,7 @@ export function EditShipment({
       isNotEmpty(addressTo?.streetName) &&
       isNotEmpty(addressTo?.postcode) &&
       isNotEmpty(addressTo?.city) &&
-      isNotEmpty(addressTo?.country) &&
-      isNotEmpty(order?.id) &&
-      isNotEmpty(relatedCustomer?.id)
+      isNotEmpty(addressTo?.country)
     ) {
       editShipmentArr(editableShipment);
       setDetailsNotEdit(true);
@@ -92,7 +90,7 @@ export function EditShipment({
   }
 
   if (loading) {
-    return <h1>hi</h1>;
+    return <h1>Loading...</h1>;
   } else {
     return (
       <form className="edit-shipment">
@@ -283,14 +281,6 @@ export function EditShipment({
         </div>
         <h3>Order:</h3>
         <div className="form-group">
-          <label>* Order ID:</label>
-          <input
-            name="order.id"
-            value={editableShipment.order.id}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
           <label>Order Name:</label>
           <input
             name="order.name"
@@ -307,14 +297,6 @@ export function EditShipment({
           />
         </div>
         <h3>Related Customer:</h3>
-        <div className="form-group">
-          <label>* Customer ID:</label>
-          <input
-            name="relatedCustomer.id"
-            value={editableShipment.relatedCustomer.id}
-            onChange={handleChange}
-          />
-        </div>
         <div className="form-group">
           <label>Customer Name:</label>
           <input

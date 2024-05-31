@@ -25,7 +25,7 @@ export default function DetailedShipment({
   }, []);
 
   if (loading) {
-    return <h1>hi</h1>;
+    return <h1>Loading...</h1>;
   } else {
     return (
       <>

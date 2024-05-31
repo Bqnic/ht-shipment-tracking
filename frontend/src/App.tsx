@@ -1,13 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Tracking from "./Tracking.tsx";
 import DetailedShipment from "./shipments/DetailedShipment.tsx";
-import { IShipment } from "./assets/Interfaces.tsx";
+import { IDetailedShipment, IShipment } from "./assets/Interfaces.tsx";
 //import { shipments } from "./assets/mockShipment.tsx";
 import { useEffect, useState } from "react";
 import Head from "./Head.tsx";
 import { EditShipment } from "./shipments/EditShipment.tsx";
 import { CreateShipment } from "./shipments/CreateShipment.tsx";
-import { getShipments } from "./apiCalls/shipmentApi.ts";
+import {
+  deleteShipment,
+  getShipments,
+  postShipment,
+} from "./apiCalls/shipmentApi.ts";
 
 export default function App() {
   const [shipmentArr, setShipmentArr] = useState<IShipment[]>([]);
@@ -26,10 +30,12 @@ export default function App() {
   }, []);
 
   function deleteFromShipmentArr(shipment: IShipment) {
-    const tempArr = [...shipmentArr];
-    const index: number = tempArr.findIndex((s) => s === shipment);
-    tempArr.splice(index, 1);
-    setShipmentArr(tempArr);
+    deleteShipment(shipment.id).then(() => {
+      const tempArr = [...shipmentArr];
+      const index: number = tempArr.findIndex((s) => s === shipment);
+      tempArr.splice(index, 1);
+      setShipmentArr(tempArr);
+    });
   }
 
   function editShipmentArr(shipment: IShipment) {
@@ -39,25 +45,31 @@ export default function App() {
     setShipmentArr(tempArr);
   }
 
-  function addShipment(shipment: IShipment) {
-    const tempArr = [...shipmentArr];
-    let id = 1;
-    while (id in tempArr) {
-      id = Math.ceil(Math.random() * 1000);
-    }
-    shipment.id = id.toString();
-    tempArr.push(shipment);
-    setShipmentArr(tempArr);
+  function addShipment(shipment: IDetailedShipment) {
+    postShipment(shipment).then(() => {
+      const tempArr = [...shipmentArr];
+      const shortShipment: IShipment = {
+        id: shipment.id,
+        status: shipment.status,
+        carrier: shipment.carrier,
+        orderId: shipment.order.id,
+        orderHref: shipment.order.href,
+        relatedCustomerId: shipment.relatedCustomer.id,
+        relatedCustomerHref: shipment.relatedCustomer.href,
+      };
+      tempArr.push(shortShipment);
+      setShipmentArr(tempArr);
+    });
   }
 
   if (loading) {
-    return <h1>hi</h1>;
+    return <h1>Loading...</h1>;
   } else {
     return (
       <>
         <Head setNotCreating={setNotCreating}></Head>
         <Routes>
-          <Route path="/" element={<Navigate to="shipmentTracking/" />}></Route>
+          <Route path="/" element={<Navigate to="shipmentTracking" />}></Route>
           <Route
             path="shipmentTracking"
             element={
