@@ -29,7 +29,7 @@ export default function MobileShipments({
         <div key={index} className="shipment-wrapper">
           <div className="shipment">
             <h3>Shipment ID: {shipment.id}</h3>
-            <p>Status: {Status[shipment.status]}</p>
+            <p>Status: {shipment.status}</p>
             <p>Carrier: {shipment.carrier}</p>
             <p>
               Order ID:{" "}

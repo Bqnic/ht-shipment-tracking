@@ -11,6 +11,7 @@ import {
   deleteShipment,
   getShipments,
   postShipment,
+  updateShipment,
 } from "./apiCalls/shipmentApi.ts";
 
 export default function App() {
@@ -25,7 +26,6 @@ export default function App() {
     getShipments().then((shipments) => {
       setShipmentArr(shipments);
       setLoading(false);
-      console.log(shipments);
     });
   }, []);
 
@@ -38,16 +38,10 @@ export default function App() {
     });
   }
 
-  function editShipmentArr(shipment: IShipment) {
-    const tempArr = [...shipmentArr];
-    const index: number = tempArr.findIndex((s) => s.id === shipment.id);
-    tempArr[index] = shipment;
-    setShipmentArr(tempArr);
-  }
-
-  function addShipment(shipment: IDetailedShipment) {
-    postShipment(shipment).then(() => {
+  function editShipmentArr(shipment: IDetailedShipment) {
+    updateShipment(shipment.id, shipment).then(() => {
       const tempArr = [...shipmentArr];
+      const index = tempArr.findIndex((s) => s.id === shipment.id);
       const shortShipment: IShipment = {
         id: shipment.id,
         status: shipment.status,
@@ -57,6 +51,24 @@ export default function App() {
         relatedCustomerId: shipment.relatedCustomer.id,
         relatedCustomerHref: shipment.relatedCustomer.href,
       };
+      tempArr[index] = shortShipment;
+      setShipmentArr(tempArr);
+    });
+  }
+
+  function addShipment(shipment: IDetailedShipment) {
+    postShipment(shipment).then((res) => {
+      const tempArr = [...shipmentArr];
+      const shortShipment: IShipment = {
+        id: res.id,
+        status: res.status,
+        carrier: res.carrier,
+        orderId: res.orderId,
+        orderHref: res.orderHref,
+        relatedCustomerId: res.relatedCustomerId,
+        relatedCustomerHref: res.relatedCustomerHref,
+      };
+      console.log(shortShipment);
       tempArr.push(shortShipment);
       setShipmentArr(tempArr);
     });

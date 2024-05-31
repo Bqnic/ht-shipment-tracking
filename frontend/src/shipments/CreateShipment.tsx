@@ -40,15 +40,8 @@ export function CreateShipment({
   }
 
   function checkValidity() {
-    const {
-      carrier,
-      trackingCode,
-      weight,
-      addressFrom,
-      addressTo,
-      order,
-      relatedCustomer,
-    } = newShipment;
+    const { carrier, trackingCode, weight, addressFrom, addressTo } =
+      newShipment;
 
     const isNotEmpty = (str: string) => str && str.trim() !== "";
     const isPositiveNumber = (num: number) => !isNaN(num) && Number(num) > 0;
@@ -295,6 +288,14 @@ export function CreateShipment({
           required
         />
       </div>
+      <div className="form-group">
+        <label>Order Href:</label>
+        <input
+          name="order.href"
+          value={newShipment.order.href}
+          onChange={handleChange}
+        />
+      </div>
       <h3>Related Customer:</h3>
       <div className="form-group">
         <label>Customer Name:</label>
@@ -310,6 +311,14 @@ export function CreateShipment({
         <input
           name="relatedCustomer.description"
           value={newShipment.relatedCustomer.description}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label>Customer Href:</label>
+        <input
+          name="relatedCustomer.href"
+          value={newShipment.relatedCustomer.href}
           onChange={handleChange}
         />
       </div>

@@ -56,8 +56,7 @@ export default function DetailedShipment({
               </p>
               <p>Tracking Date: {shipment?.trackingDate as string}</p>
               <p>
-                Status:{" "}
-                <strong>{shipment ? Status[shipment.status] : null}</strong>
+                Status: <strong>{shipment?.status}</strong>
               </p>
               <p>Status Change Date: {shipment?.statusChangeDate as string}</p>
               <p>Status Change Reason: {shipment?.statusChangeReason}</p>

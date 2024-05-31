@@ -52,16 +52,8 @@ export function EditShipment({
   }
 
   function checkValidity() {
-    const {
-      carrier,
-      trackingCode,
-      weight,
-      addressFrom,
-      addressTo,
-      order,
-      relatedCustomer,
-      id,
-    } = editableShipment;
+    const { carrier, trackingCode, weight, addressFrom, addressTo, id } =
+      editableShipment;
 
     const isNotEmpty = (str: string) => str && str.trim() !== "";
     const isPositiveNumber = (num: number) => !isNaN(num) && Number(num) > 0;
@@ -83,7 +75,6 @@ export function EditShipment({
     ) {
       editShipmentArr(editableShipment);
       setDetailsNotEdit(true);
-      navigate(`/shipmentTracking/${id}`);
     } else {
       alert("Please fill out the required fields (marked with *)");
     }

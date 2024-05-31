@@ -1,7 +1,8 @@
-const express = require("express");
-const shipmentTrackingRouter = express.Router();
-const db = require("../database.js");
-const { v4: uuidv4 } = require("uuid");
+import { nanoid } from "nanoid";
+import express from "express";
+import { db } from "../database.js";
+
+export const shipmentTrackingRouter = express.Router();
 
 shipmentTrackingRouter.get("/", async (req, res) => {
   try {
@@ -156,8 +157,8 @@ shipmentTrackingRouter.get("/:id", async (req, res) => {
 shipmentTrackingRouter.post("/", async (req, res) => {
   const addressSql =
     "INSERT INTO Address (id, streetNr, streetName, streetSuffix, postcode, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  const addressFromId = uuidv4();
-  const addressToId = uuidv4();
+  const addressFromId = nanoid();
+  const addressToId = nanoid();
   const addressFromParams = [
     addressFromId,
     req.body.addressFrom.streetNr,
@@ -179,7 +180,7 @@ shipmentTrackingRouter.post("/", async (req, res) => {
 
   const orderSql =
     "INSERT INTO OrderRefType (id, href, name, referredType) VALUES (?, ?, ?, ?)";
-  const orderId = uuidv4();
+  const orderId = nanoid();
   const orderParams = [
     orderId,
     req.body.order.href,
@@ -189,7 +190,7 @@ shipmentTrackingRouter.post("/", async (req, res) => {
 
   const customerSql =
     "INSERT INTO CustomerRefType (id, href, name, description) VALUES (?, ?, ?, ?)";
-  const relatedCustomerId = uuidv4();
+  const relatedCustomerId = nanoid();
   const customerParams = [
     relatedCustomerId,
     req.body.relatedCustomer.href,
@@ -199,7 +200,7 @@ shipmentTrackingRouter.post("/", async (req, res) => {
 
   const shipmentTrackingSql =
     "INSERT INTO ShipmentTracking (id, carrier, trackingCode, carrierTrackingUrl, trackingDate, status, statusChangeDate, weight, estimatedDeliveryDate, addressFromId, addressToId, orderId, relatedCustomerId, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  const shipmentTrackingId = uuidv4();
+  const shipmentTrackingId = nanoid();
   const shipmentTrackingParams = [
     shipmentTrackingId,
     req.body.carrier,
@@ -285,21 +286,13 @@ shipmentTrackingRouter.post("/", async (req, res) => {
     );
 
     const result = {
-      shipmentTrackingId: shipmentTrackingId,
+      id: shipmentTrackingId,
       carrier: req.body.carrier,
-      trackingCode: req.body.trackingCode,
-      carrierTrackingUrl: req.body.carrierTrackingUrl,
-      trackingDate: req.body.trackingDate,
       status: req.body.status,
-      statusChangeDate: req.body.statusChangeDate,
-      statusChangeReason: req.body.statusChangeReason,
-      weight: req.body.weight,
-      estimatedDeliveryDate: req.body.estimatedDeliveryDate,
-      addressFromId: addressFromId,
-      addressToId: addressToId,
       orderId: orderId,
+      orderHref: req.body.order.href,
       relatedCustomerId: relatedCustomerId,
-      createDate: req.body.createDate,
+      relatedCustomerHref: req.body.relatedCustomer.href,
     };
 
     res.json(result);
@@ -396,6 +389,19 @@ shipmentTrackingRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const updateFields = req.body;
 
+  const getShipmentSql = "SELECT * FROM ShipmentTracking WHERE id = ?";
+  const shipment = await new Promise((resolve, reject) => {
+    db.get(getShipmentSql, [id], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+
+  const { addressFromId, addressToId, orderId, relatedCustomerId } = shipment;
+
   const validFieldsShipment = [
     "carrier",
     "trackingCode",
@@ -440,18 +446,40 @@ shipmentTrackingRouter.patch("/:id", async (req, res) => {
     if (validFieldsShipment.includes(key)) {
       updatesShipment.push(`${key} = ?`);
       paramsShipment.push(value);
-    } else if (validFieldsAddress.includes("addressFrom." + key)) {
-      updatesAddressFrom.push(`${key} = ?`);
-      paramsAddressFrom.push(value);
-    } else if (validFieldsAddress.includes("addressTo." + key)) {
-      updatesAddressTo.push(`${key} = ?`);
-      paramsAddressTo.push(value);
-    } else if (validFieldsOrder.includes("order." + key)) {
-      updatesOrder.push(`${key} = ?`);
-      paramsOrder.push(value);
-    } else if (validFieldsCustomer.includes("relatedCustomer." + key)) {
-      updatesRelatedCustomer.push(`${key} = ?`);
-      paramsRelatedCustomer.push(value);
+    } else if (key === "addressFrom") {
+      for (const [addressKey, addressValue] of Object.entries(
+        updateFields.addressFrom
+      )) {
+        if (validFieldsAddress.includes(addressKey)) {
+          updatesAddressFrom.push(`${addressKey} = ?`);
+          paramsAddressFrom.push(addressValue);
+        }
+      }
+    } else if (key === "addressTo") {
+      for (const [addressKey, addressValue] of Object.entries(
+        updateFields.addressTo
+      )) {
+        if (validFieldsAddress.includes(addressKey)) {
+          updatesAddressTo.push(`${addressKey} = ?`);
+          paramsAddressTo.push(addressValue);
+        }
+      }
+    } else if (key === "order") {
+      for (const [orderKey, orderValue] of Object.entries(updateFields.order)) {
+        if (validFieldsOrder.includes(orderKey)) {
+          updatesOrder.push(`${orderKey} = ?`);
+          paramsOrder.push(orderValue);
+        }
+      }
+    } else if (key === "relatedCustomer") {
+      for (const [customerKey, customerValue] of Object.entries(
+        updateFields.relatedCustomer
+      )) {
+        if (validFieldsCustomer.includes(customerKey)) {
+          updatesRelatedCustomer.push(`${customerKey} = ?`);
+          paramsRelatedCustomer.push(customerValue);
+        }
+      }
     }
   }
 
@@ -473,11 +501,66 @@ shipmentTrackingRouter.patch("/:id", async (req, res) => {
   const updateAddressFromSql = `UPDATE Address SET ${updatesAddressFrom.join(
     ", "
   )} WHERE id = ?`;
-  paramsAddressFrom.push;
+  paramsAddressFrom.push(addressFromId);
+
+  const updateAddressToSql = `UPDATE Address SET ${updatesAddressTo.join(
+    ", "
+  )} WHERE id = ?`;
+  paramsAddressTo.push(addressToId);
+
+  const updateOrder = `UPDATE Address SET ${updatesAddressFrom.join(
+    ", "
+  )} WHERE id = ?`;
+  paramsOrder.push(orderId);
+
+  const updateRelatedCustomer = `UPDATE Address SET ${updatesAddressFrom.join(
+    ", "
+  )} WHERE id = ?`;
+  paramsRelatedCustomer.push(relatedCustomerId);
 
   try {
     await new Promise((resolve, reject) => {
-      db.run(updateShipmentSql, params, function (err) {
+      db.run(updateShipmentSql, paramsShipment, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      db.run(updateAddressFromSql, paramsAddressFrom, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      db.run(updateAddressToSql, paramsAddressTo, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      db.run(updateOrder, paramsOrder, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      db.run(updateRelatedCustomer, paramsRelatedCustomer, function (err) {
         if (err) {
           reject(err);
         } else {
@@ -491,5 +574,3 @@ shipmentTrackingRouter.patch("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-module.exports = shipmentTrackingRouter;

@@ -32,7 +32,7 @@ export default function Tracking({
       >
         +
       </button>
-      {screenWidth < 900 ? (
+      {screenWidth < 1000 ? (
         <MobileShipments
           shipmentArr={shipmentArr}
           deleteFromShipmentArr={deleteFromShipmentArr}

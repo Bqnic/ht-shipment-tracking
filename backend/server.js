@@ -1,15 +1,16 @@
-const express = require("express");
-const shipmentTrackingRouter = require("./routes/shipmentTracking");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express, { json } from "express";
+import { shipmentTrackingRouter } from "./routes/shipmentTracking.js";
+import cors from "cors";
+import pkg from "body-parser";
+const { urlencoded, json: _json } = pkg;
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(json());
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(_json());
 app.use("/shipmentTracking", shipmentTrackingRouter);
 
 app.get("/", (req, res) => {

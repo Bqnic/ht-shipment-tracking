@@ -36,7 +36,7 @@ export default function DesktopShipments({
       {filteredArr.map((shipment, index) => (
         <div key={index} className="shipment-row">
           <div>{shipment.id}</div>
-          <div>{Status[shipment.status]}</div>
+          <div>{shipment.status}</div>
           <div>{shipment.carrier}</div>
           <div>
             <a
