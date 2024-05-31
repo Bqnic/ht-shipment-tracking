@@ -52,7 +52,7 @@ export function EditShipment({
   }
 
   function checkValidity() {
-    const { carrier, trackingCode, weight, addressFrom, addressTo, id } =
+    const { carrier, trackingCode, weight, addressFrom, addressTo } =
       editableShipment;
 
     const isNotEmpty = (str: string) => str && str.trim() !== "";

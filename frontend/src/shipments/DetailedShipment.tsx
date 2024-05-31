@@ -1,9 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  IDetailedShipment,
-  IDetailedShipmentComp,
-  Status,
-} from "../assets/Interfaces";
+import { IDetailedShipment, IDetailedShipmentComp } from "../assets/Interfaces";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDetailedShipments } from "../apiCalls/shipmentApi";

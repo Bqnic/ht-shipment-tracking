@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IShipmentsComp, Status } from "../assets/Interfaces";
+import { IShipmentsComp } from "../assets/Interfaces";
 
 export default function DesktopShipments({
   shipmentArr,
@@ -76,7 +76,14 @@ export default function DesktopShipments({
               Edit
             </button>
             <button
-              onClick={() => deleteFromShipmentArr(shipment)}
+              onClick={() => {
+                const dlt = confirm(
+                  `Are you sure you want to delete shipment ${shipment.id}`
+                );
+                if (dlt) {
+                  deleteFromShipmentArr(shipment);
+                }
+              }}
               className="delete-btn"
             >
               Delete

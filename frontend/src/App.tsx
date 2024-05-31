@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Tracking from "./Tracking.tsx";
 import DetailedShipment from "./shipments/DetailedShipment.tsx";
 import { IDetailedShipment, IShipment } from "./assets/Interfaces.tsx";
-//import { shipments } from "./assets/mockShipment.tsx";
 import { useEffect, useState } from "react";
 import Head from "./Head.tsx";
 import { EditShipment } from "./shipments/EditShipment.tsx";

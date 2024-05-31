@@ -16,7 +16,6 @@ export default function Head({ setNotCreating }: IHead) {
         >
           Dashboard
         </button>
-        <button>Graph</button>
       </div>
     </div>
   );

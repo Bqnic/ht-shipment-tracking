@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IShipmentsComp, Status } from "../assets/Interfaces";
+import { IShipmentsComp } from "../assets/Interfaces";
 
 export default function MobileShipments({
   shipmentArr,
@@ -64,7 +64,9 @@ export default function MobileShipments({
               Edit
             </button>
             <button
-              onClick={() => deleteFromShipmentArr(shipment)}
+              onClick={() => {
+                deleteFromShipmentArr(shipment);
+              }}
               className="delete-btn"
             >
               Delete
