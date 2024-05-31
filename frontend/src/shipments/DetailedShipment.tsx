@@ -128,6 +128,12 @@ export default function DetailedShipment({
             <p>Create Date: {shipment?.createDate as unknown as string}</p>
             <div className="buttons">
               <button
+                className="edit-btn"
+                onClick={() => setDetailsNotEdit(false)}
+              >
+                Edit
+              </button>
+              <button
                 className="delete-btn"
                 onClick={() => {
                   const dlt = confirm(
@@ -140,12 +146,6 @@ export default function DetailedShipment({
                 }}
               >
                 Delete
-              </button>
-              <button
-                className="edit-btn"
-                onClick={() => setDetailsNotEdit(false)}
-              >
-                Edit
               </button>
             </div>
           </div>

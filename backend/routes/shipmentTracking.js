@@ -508,12 +508,12 @@ shipmentTrackingRouter.patch("/:id", async (req, res) => {
   )} WHERE id = ?`;
   paramsAddressTo.push(addressToId);
 
-  const updateOrder = `UPDATE Address SET ${updatesAddressFrom.join(
+  const updateOrder = `UPDATE OrderRefType SET ${updatesOrder.join(
     ", "
   )} WHERE id = ?`;
   paramsOrder.push(orderId);
 
-  const updateRelatedCustomer = `UPDATE Address SET ${updatesAddressFrom.join(
+  const updateRelatedCustomer = `UPDATE CustomerRefType SET ${updatesRelatedCustomer.join(
     ", "
   )} WHERE id = ?`;
   paramsRelatedCustomer.push(relatedCustomerId);
