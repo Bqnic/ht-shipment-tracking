@@ -13,3 +13,5 @@ npm run dev
 ```
 
 Potpuno je responzivno.
+
+![](screenshot.png)
